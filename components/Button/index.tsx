@@ -3,11 +3,22 @@ import { ButtonProps } from "./types"
 import { getButtonStyles } from "./style"
 import { JSX } from "react"
 
-export const Button = ({ onPress, variant = 'primary', children, ...props }: ButtonProps): JSX.Element => {
-	const buttonStyles = getButtonStyles(variant)
+export const Button = ({
+	onPress,
+	variant = 'primary',
+	disabled,
+	children,
+	...props
+}: ButtonProps): JSX.Element => {
+	const buttonStyles = getButtonStyles(variant, disabled)
 
 	return (
-		<TouchableOpacity {...props} style={[buttonStyles.button, variant === 'secondary' && buttonStyles.secondaryButton]} onPress={onPress}>
+		<TouchableOpacity
+			{...props}
+			disabled={disabled}
+			style={[buttonStyles.button, variant === 'secondary' && buttonStyles.secondaryButton]}
+			onPress={onPress}
+		>
 			<Text style={buttonStyles.textButton}>{children}</Text>
 		</TouchableOpacity>
 	)
